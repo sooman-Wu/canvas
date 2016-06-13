@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>vanvas</title>
+</head>
+<style>
+body{
+  margin: 0;
+  padding: 0;
+  /*background-image: url(bg.jpg);*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: 100%,auto;*/
+}
+	#canvas{
+      display: block;
+      margin: 0 auto;
+	}
+</style>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+	<script>
+      var canvas= document.querySelector('#canvas');
+      var ctx = canvas.getContext('2d');
+      // ctx.beginPath();
+      // ctx.moveTo(0,0);
+      // ctx.lineTo(600,600);
+      //  ctx.moveTo(600,0);
+      // ctx.lineTo(0,600);
+      // ctx.stroke();
+      // ctx.closePath();
+      // ctx.fillRect(250,250,100,100);
+      // ctx.clearRect(275,275,60,60);
+      // ctx.strokeRect(280,280,50,50);
+      // ctx.beginPath();
+      // ctx.arc(150,150,80,0,(Math.PI/180)*360);      
+      // ctx.fill();
+      // ctx.beginPath();
+      // ctx.arc(450,150,80,0,(Math.PI/180)*360);
+      // ctx.stroke();
+      //  ctx.beginPath();
+      // ctx.arc(450,150,40,0,(Math.PI/180)*360);
+      // ctx.fill();
+      // ctx.beginPath();
+      // ctx.arc(300,360,150,0,(Math.PI/180)*-180);
+      // ctx.stroke();
+
+      // ctx.beginPath();
+      // ctx.moveTo(300,340);
+      // ctx.lineTo(300,320);
+      // ctx.moveTo(320,300);
+      // ctx.arc(300,300,20,0,(Math.PI/180)*360);
+      // ctx.quadraticCurveTo(280, 300, 300, 280);
+      // ctx.stroke();
+      // ctx.moveTo(300,280);
+      // ctx.lineTo(300,20);
+      //  ctx.stroke();
+
+
+      // ctx.save();
+      // ctx.translate(300,300);
+      // ctx.arc(0,0,20,0,(Math.PI/180)*360);
+      // ctx.stroke();
+      // ctx.restore();
+      // ctx.fillRect(0,0,100,100);
+
+
+      // ctx.save();
+      // ctx.translate(300,300);
+      // ctx.beginPath();
+      // for(var i=0;i<12;i++){
+      //   ctx.moveTo(0,0);
+      //   ctx.lineTo(0,-100);
+      //   ctx.rotate((Math.PI/180)*30);
+      // }
+      // ctx.stroke();
+      // ctx.closePath();
+      // ctx.restore();
+
+
+
+      // 钟表
+      var deg = function(deg){
+        return (Math.PI/180)*deg;
+      }
+   var drawclock=function(){
+     
+        
+        var img = new Image();
+        img.src = 'clock.png';
+        img.onload=function(){
+        ctx.clearRect(0,0,600,600); 
+        var pattern = ctx.createPattern(img, 'no-repeat');
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0,0,600,600);
+
+        ctx.save();
+        ctx.translate(300,300);
+        ctx.beginPath();
+        
+
+        var now = new Date();
+        var second = now.getSeconds();
+        var minutes = now.getMinutes();
+        var hours = now.getHours();
+        var ss = now.getMilliseconds();
+        
+
+
+        ctx.save();
+        ctx.rotate(deg(360*(hours*3600+minutes*60+second)/43200));
+        ctx.beginPath();
+        ctx.lineWidth=10;
+        ctx.strokeStyle='#333';
+         ctx . lineCap = 'round';
+        ctx.moveTo(0,25);
+        ctx.lineTo(0,5);
+        ctx.moveTo(5,0);
+        ctx.moveTo(0,-5);
+        ctx.lineTo(0,-80);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+
+        ctx.save();
+        ctx.rotate(deg(360*(minutes*60+second)/3600));
+        ctx.beginPath();
+        ctx.lineWidth=10;
+        ctx.strokeStyle='#333';
+        ctx . lineCap = 'round';
+        ctx.moveTo(0,25);
+        ctx.lineTo(0,5);
+        ctx.moveTo(5,0);
+        ctx.moveTo(0,-5);
+        ctx.lineTo(0,-100);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+
+
+         ctx.save();
+        ctx.rotate(deg(360*(second*1000+ss)/60000));  
+        ctx.beginPath();
+        ctx.lineWidth=5;
+         ctx . lineCap = 'round';
+        ctx.strokeStyle='#BF0A03';
+
+        ctx.moveTo(0,25);
+        ctx.lineTo(0,5);
+        ctx.moveTo(5,0);
+        ctx.arc(0,0,5,0,deg(360));
+        ctx.moveTo(0,-5);
+        ctx.lineTo(0,-140);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+      
+    }
+      // ctx.arc(0,0,200,0,(Math.PI/180)*360);
+	      // ctx.save(); 
+
+	      // for(var i=0;i<60;i++){
+	      // 	if(i%5===0){
+	      // 		ctx.moveTo(0,-170);
+	      // 	}else{
+	      // 		ctx.moveTo(0,-180);
+	      // 	}	      	 
+	      // 	 ctx.lineTo(0,-200);
+	      // 	 ctx.rotate((Math.PI/180)*6);
+	      // }
+	      // ctx.stroke();
+	      // ctx.closePath();
+	      // ctx.restore();
+	      
+	      // ctx.beginPath();
+       //  var img1 = new Image();
+       //  img1.src = 'clock.png';
+       //  img1.onload=function(){
+       //  var pattern = ctx.createPattern(img, 'no-repeat');
+       //  ctx.fillStyle = pattern;
+       //  ctx.arc(300,300,300,0,(Math.PI/180)*360); 
+       //  ctx.fill();
+
+       //  }
+       
+   }
+   drawclock();
+   setInterval(drawclock,10)
+
+
+
+   // var off=0;
+   // var draw = function(){
+   // 	ctx.clearRect(0,0,600,600);
+   // 	   off += 20;
+   // 	  ctx.lineWidth = 20;           
+   //    ctx.setLineDash([20,5]);
+   //    ctx.lineDashOffset = off;
+   //    ctx.strokeRect(200,200,200,200);
+
+   // }   
+   //  setInterval(draw,1000);  
+
+    
+
+
+    // var aa = ctx.createLinearGradient(200, 200, 400, 200);
+    //   aa.addColorStop(0,"pink");
+    //   aa.addColorStop(1,"orange");
+    //   ctx.fillStyle=aa;
+    // ctx.fillRect(200,200,200,200);
+
+    // var img = new Image();
+    // img.src = 'g2.jpg';
+    // img.onload=function(){
+    // 	var pattern = ctx.createPattern(img, 'repeat');
+    // 	ctx.fillStyle = pattern;
+    //     ctx.fillRect(0,0,400,400); 
+    // }
+
+   
+
+ //    var gradient = ctx.createRadialGradient(280, 280, 150, 280, 280, 10);
+ //    gradient.addColorStop(0,"white");
+	// gradient.addColorStop(1,"green");
+	// ctx.fillStyle = gradient;
+ //    ctx.arc(300,300,200,0,(Math.PI/180)*360);
+ //    ctx.fill();
+
+	</script>
+</body>
+</html>
